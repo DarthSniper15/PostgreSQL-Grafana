@@ -3,7 +3,7 @@ SELECT
 'tagname' as "tagname", --tagname que será utilizada na consulta aos Bancos de Dados
 '00:00'::time as "start", --Hora inicial do dia
 '23:59'::time as "end", --Hora final do dia
-20::int as "intervalo", --intervalo dos dados usados nos cálculos
+'00:00'::time as "intervalo", --intervalo dos dados usados nos cálculos
 0::float as "outorga", --Valor Outorga m³/dia | período de 20h
 0::float as "anomalia", --Valor acima/abaixo considerados anômalos
 	/*Conversores*/
@@ -21,7 +21,7 @@ SELECT
 	/*chama o DB*/
 	FROM openiot_json.historian_new_data_extra hnde
 	WHERE tagname = (SELECT tagname FROM params) 
-	and "timestamp" > now() - interval (SELECT intervalo FROM params) --intervalo entre agora e XX horas antes
+	and "timestamp" > now() - (SELECT intervalo FROM params) --intervalo entre agora e XX horas antes
 	and ("timestamp" at time zone 'America/Sao_Paulo')::time BETWEEN (SELECT start FROM params) and (SELECT "end" FROM params)
   ORDER BY "time"
 )
