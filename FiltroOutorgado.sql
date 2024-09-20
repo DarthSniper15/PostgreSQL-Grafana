@@ -32,7 +32,7 @@ SELECT
     distinct on (minute) minute,
 
 	case
-	when "value" < (SELECT anomalia FROM params) --valores anômalos acima de 200
+	when "value" < (SELECT anomalia FROM params) --filtro de valores anômalos
 	then (sum("value") over w) --soma todas as medições no período de XX horas ignorando valores anômalos
 	else null
 	end as outor
