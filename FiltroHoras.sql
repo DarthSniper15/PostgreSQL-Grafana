@@ -20,6 +20,7 @@ select
   as "Teste", $__time("timestamp")
 
 /*chama o DB*/
-from openiot_json.historian_new_data_extra hnde
+from "DataBase" hnde
 where tagname = 'tagname' and $__timeFilter("timestamp")
+
 ORDER by "time"
