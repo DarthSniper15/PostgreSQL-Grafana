@@ -19,7 +19,7 @@ SELECT
   date_trunc('minute',"timestamp") as "minute"
 
 	/*chama o DB*/
-	FROM openiot_json.historian_new_data_extra hnde
+	FROM "DataBase" hnde
 	WHERE tagname = (SELECT tagname FROM params) 
 	and "timestamp" > now() - (SELECT intervalo FROM params) --intervalo entre agora e XX horas antes
 	and ("timestamp" at time zone 'America/Sao_Paulo')::time BETWEEN (SELECT start FROM params) and (SELECT "end" FROM params)
@@ -64,3 +64,4 @@ else 0
 end as "Alerta Outorga"
 
 FROM calculaoutor, calcula
+
